@@ -145,3 +145,95 @@
   border-radius: var(--radius-sm);
   border: 1px dashed var(--border-color);
 }
+
+.iconButton {
+  background: transparent;
+  border: 1.5px dashed rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.iconButton:hover:not(:disabled) {
+  border-color: rgba(139, 92, 246, 0.4);
+  border-style: solid;
+  color: var(--primary-color);
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.iconButton:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.iconButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.actionButton {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.actionButton:hover:not(:disabled) {
+  border-color: rgba(16, 185, 129, 0.3);
+  color: rgb(16, 185, 129);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.actionButton:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.actionButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.clearButton {
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.clearButton:hover:not(:disabled) {
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--danger-color);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.clearButton:active:not(:disabled) {
+  transform: scale(0.95);
+}

@@ -64,19 +64,9 @@ export default function EntryList({ items, onAdd, onRemove, onClear, onRemoveDup
           onClick={() => fileInputRef.current?.click()}
           disabled={disabled}
           className={styles.iconButton}
-          title="Add Image"
-          style={{ 
-            background: 'var(--surface-glass)',
-            border: '1px solid var(--border-color)',
-            color: 'var(--text-primary)',
-            width: '40px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer'
-          }}
+          title="Upload Image"
         >
-          📷
+          +
         </button>
         <button onClick={handleAdd} disabled={disabled || !inputValue.trim()} className={styles.addButton}>
           Add
@@ -91,7 +81,6 @@ export default function EntryList({ items, onAdd, onRemove, onClear, onRemoveDup
             className={styles.actionButton}
             title="Remove Duplicates"
             disabled={disabled || items.length === 0}
-            style={{ marginRight: '0.5rem' }}
           >
             Unique
           </button>
