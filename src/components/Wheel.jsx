@@ -99,10 +99,6 @@ export default function Wheel({ items, isSpinning, selectedIndex, onSpinComplete
     return [x, y];
   };
 
-  // Calculate dynamic font size based on number of items
-  // Base size 0.1, decreases as items increase
-  const fontSize = Math.max(0.04, 0.1 - (Math.max(0, items.length - 10) * 0.002));
-
   return (
     <div 
       className={styles.wheelContainer}
@@ -136,23 +132,41 @@ export default function Wheel({ items, isSpinning, selectedIndex, onSpinComplete
             // Convert to degrees for SVG transform
             let midDeg = midAngle * 180 / Math.PI;
             
+            // Calculate angle for this slice (used for both text and image logic)
+            const angleRad = (endAngle - startAngle) * 2 * Math.PI;
+            
+            // Special case: if there's only 1 item, center the text
+            const isSingleItem = items.length === 1;
+            
             // Adjust for readability
             // If the text is on the left side (90 to 270 degrees), flip it 180
-            // We need to rotate by midDeg + 180 and move x to negative radius
             
-            let transform = `rotate(${midDeg})`;
-            let xPos = 0.6;
+            let transform = isSingleItem ? 'rotate(0)' : `rotate(${midDeg})`;
+            let xPos = isSingleItem ? 0 : 0.6;
             
-            if (midDeg > 90 && midDeg < 270) {
+            if (!isSingleItem && midDeg > 90 && midDeg < 270) {
                midDeg += 180;
                transform = `rotate(${midDeg})`;
                xPos = -0.6; // Move to opposite side so it lands in the correct slice
             }
             
-            // Image Logic
-            // We want the image to fill the slice as much as possible.
-            // We'll define a clipPath matching the slice shape in the local coordinate system.
-            const angleRad = (endAngle - startAngle) * 2 * Math.PI;
+            // Dynamic fontSize calculation per slice
+            // Calculate available arc length at text radius
+            const textRadius = 0.6;
+            const arcLength = textRadius * angleRad;
+            
+            // For text items, calculate optimal font size to fill the slice
+            let dynamicFontSize = 0.1; // default
+            if (item.type === 'text') {
+              const textLength = item.value.length;
+              // Estimate: each character needs about fontSize of arc length
+              // Be VERY conservative - use only 50% of calculated space
+              dynamicFontSize = (arcLength / textLength);
+              // Clamp between much tighter bounds
+              dynamicFontSize = Math.max(0.05, Math.min(0.1, dynamicFontSize));
+            }
+            
+            // Image Logic - clipPath for image masking
             const halfAngle = angleRad / 2;
             const r = 1; // radius
             
@@ -201,14 +215,14 @@ export default function Wheel({ items, isSpinning, selectedIndex, onSpinComplete
                     x={xPos}
                     y="0"
                     fill="white"
-                    fontSize={fontSize}
+                    fontSize={dynamicFontSize}
                     fontWeight="bold"
                     textAnchor="middle"
                     dominantBaseline="middle"
                     transform={transform} 
                     style={{ pointerEvents: 'none', userSelect: 'none' }}
                   >
-                    {item.value.length > 12 ? item.value.substring(0, 12) + '...' : item.value}
+                    {item.value}
                   </text>
                 )}
               </g>

@@ -45,8 +45,10 @@ h1 {
 }
 
 .wheel-placeholder {
-  width: 350px;
-  height: 350px;
+  width: 60vmin;
+  height: 60vmin;
+  max-width: 600px;
+  max-height: 600px;
   border-radius: 50%;
   border: 4px dashed var(--border-color);
   display: flex;
@@ -56,13 +58,6 @@ h1 {
   margin: 2rem auto;
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(10px);
-}
-
-@media (min-width: 768px) {
-  .wheel-placeholder {
-    width: 400px;
-    height: 400px;
-  }
 }
 
 .controls {

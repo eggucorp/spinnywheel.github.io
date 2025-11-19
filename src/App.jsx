@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Wheel from './components/Wheel'
 import EntryList from './components/EntryList'
 import EliminatedList from './components/EliminatedList'
+import WinnerModal from './components/WinnerModal'
 import { soundManager } from './utils/SoundManager'
 import confetti from 'canvas-confetti';
 import './App.css'
@@ -173,19 +174,6 @@ function App() {
               <div className="placeholder-text">Add items to start spinning!</div>
             </div>
           )}
-          
-          {winner && (
-            <div className="winner-announcement">
-              <h2>🎉 Winner! 🎉</h2>
-              <div className="winner-name">
-                {winner.type === 'image' ? (
-                  <img src={winner.value} alt="Winner" style={{ maxWidth: '200px', maxHeight: '200px', borderRadius: 'var(--radius-md)' }} />
-                ) : (
-                  winner.value
-                )}
-              </div>
-            </div>
-          )}
 
           <div className="controls">
           <button 
@@ -223,6 +211,8 @@ function App() {
           <EliminatedList eliminated={eliminated} onRestart={handleRestart} />
         </div>
       </div>
+      
+      <WinnerModal winner={winner} onClose={() => setWinner(null)} />
     </div>
   )
 }

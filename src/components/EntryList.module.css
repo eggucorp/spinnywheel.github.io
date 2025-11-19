@@ -112,6 +112,8 @@
 .itemText {
   word-break: break-word;
   font-weight: 500;
+  text-align: left;
+  flex: 1;
 }
 
 .removeButton {
